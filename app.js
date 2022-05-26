@@ -11,8 +11,14 @@ app.get('/monsters', (request, response, next) => {
   });
 });
 
+// error handler
 app.use((err, req, res, next) => {
-  res.json(err);
+  res.status(err.status || 500);
+  res.json({
+    errors: {
+      message: err.message,
+    },
+  });
 });
 
 module.exports = app;
